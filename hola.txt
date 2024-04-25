@@ -1,0 +1,166 @@
+DROP DATABASE HOSPITAL;
+CREATE DATABASE HOSPITAL;
+USE HOSPITAL;
+
+CREATE TABLE PACIENTES(
+	IDPACIENTE INT NOT NULL, 
+	CEDULA_PAC VARCHAR(10) NOT NULL, 
+	APELLIDO_PAC VARCHAR(20) NOT NULL,
+	NOMBRE_PAC VARCHAR(20) NOT NULL,
+	EDAD_PAC INT NOT NULL,
+	DIRECCION_PAC VARCHAR(30) NOT NULL,
+	TELEFONO_PAC VARCHAR(10) NOT NULL,
+	PRIMARY KEY(IDPACIENTE)
+);
+CREATE TABLE MEDICOS(
+	IDMEDICO INT NOT NULL,
+	CEDULA_MED VARCHAR(10) NOT NULL,
+	APELLIDO_MED VARCHAR(20) NOT NULL,
+	NOMBRE_MED VARCHAR(20) NOT NULL,
+	ESPECIALIDAD_MED VARCHAR(30) NOT NULL,
+	FECHANACIMIENTO_MED DATE NOT NULL,
+	PRIMARY KEY(IDMEDICO)
+);
+CREATE TABLE INGRESOS(
+	IDINGRESO INT NOT NULL AUTO_INCREMENT,
+	SINTOMAS_ING VARCHAR(80) NOT NULL,
+	PESO_ING FLOAT NOT NULL,
+	ESTATURA_ING FLOAT NOT NULL,
+	FECHA_ING DATE NOT NULL,
+	FK_IDPACIENTE INT NOT NULL,
+	FK_IDMEDICO INT NOT NULL,
+	PRIMARY KEY(IDINGRESO),
+	CONSTRAINT REL_INGR_PAC FOREIGN KEY(FK_IDPACIENTE) REFERENCES PACIENTES(IDPACIENTE) ON DELETE RESTRICT ON UPDATE RESTRICT,
+	CONSTRAINT REL_INGR_MED FOREIGN KEY(FK_IDMEDICO) REFERENCES MEDICOS(IDMEDICO) ON DELETE RESTRICT ON UPDATE RESTRICT
+);
+CREATE TABLE DIAGNOSTICOS(
+	IDDIAGNOSTICO INT NOT NULL AUTO_INCREMENT,
+	ENFERMEDAD_DIA VARCHAR(30) NOT NULL,
+	DESCRIPCION_DIA VARCHAR(50) NOT NULL,
+	TRATAMIENTO_DIA VARCHAR(80) NOT NULL,
+	FECHA_DIA DATE NOT NULL,
+	FK_IDINGRESO INT NOT NULL,
+	PRIMARY KEY(IDDIAGNOSTICO),
+	CONSTRAINT REL_DIAG_INGR FOREIGN KEY(FK_IDINGRESO) REFERENCES INGRESOS(IDINGRESO) ON DELETE RESTRICT ON UPDATE RESTRICT
+);
+
+
+-- INSERTAR DATOS EN TABLA PACIENTES
+
+
+INSERT INTO PACIENTES VALUES 
+    (1, '1234567890', 'López', 'Juan', 35, 'Calle 123', '0986654321'),
+    (2, '5464764364', 'García', 'María', 28, 'Avenida Principal', '0983453356'),
+    (3, '8675357689', 'Rodríguez', 'Ana', 42, 'Calle 456', '0983453465'),
+    (4, '5463465689', 'Pérez', 'Luis', 19, 'Avenida Secundaria', '0983453466'),
+    (5, '1353465689', 'Castro', 'Carolina', 56, 'Calle 789', '0983453467'),
+    (6, '0858563465', 'Martínez', 'Roberto', 64, 'Avenida Norte', '0983453468'),
+    (7, '4365768990', 'López', 'Gabriela', 31, 'Calle Sur', '0983453469'),
+    (8, '9879960970', 'Ramírez', 'Alejandro', 47, 'Avenida Oeste', '0983453470'),
+    (9, '1455465657', 'González', 'Laura', 23, 'Calle Este', '0935435328'),
+    (10, '2426867989', 'Silva', 'Manuel', 39, 'Avenida Central', '0834356935'),
+    (11, '2345688778', 'Torres', 'Sandra', 41, 'Calle 12', '0934643567'),
+    (12, '7495843435', 'Pérez', 'Andrea', 34, 'Avenida 13', '0972357889'),
+    (13, '3423545467', 'Morales', 'Oscar', 29, 'Calle 14', '0893432452'),
+    (14, '0797657656', 'Fernández', 'Natalia', 25, 'Avenida 15', '0945235901'),
+    (15, '7889856553', 'Torres', 'Ricardo', 37, 'Calle 16', '0985343865'),
+    (16, '1244576879', 'Sánchez', 'Carolina', 33, 'Avenida 17', '0943535654'),
+    (17, '8654878545', 'Méndez', 'Luis', 44, 'Calle 18', '0934323547'),
+    (18, '3547898086', 'Romero', 'Gabriela', 26, 'Avenida 19', '0954654569'),
+    (19, '1367879896', 'Herrera', 'Daniel', 30, 'Calle 20', '0943353291'),
+    (20, '1046776889', 'Vargas', 'Laura', 43, 'Avenida 21', '0974225792'),
+    (21, '0123367878', 'Navarro', 'Andrés', 32, 'Calle 22', '0957647384'),
+    (22, '0434459656', 'Soto', 'Mariana', 29, 'Avenida 23', '0895464563'),
+    (23, '9686555569', 'Morales', 'Roberto', 39, 'Calle 24', '0956432565'),
+    (24, '9543545799', 'Pacheco', 'Daniela', 27, 'Avenida 25', '0876543663'),
+    (25, '2643345676', 'Cordero', 'Martín', 36, 'Calle 26', '0876445694');
+
+-- INSERTAR DATOS EN LA TABLA MÉDICOS
+
+INSERT INTO MEDICOS VALUES 
+    (1, '1234567890', 'González', 'María', 'Pediatría', '1980-05-15'),
+    (2, '2345678901', 'López', 'Pablo', 'Cardiología', '1975-09-23'),
+    (3, '3456789012', 'Martínez', 'Ana', 'Dermatología', '1982-11-30'),
+    (4, '4567890123', 'Rodríguez', 'Carlos', 'Cirugía General', '1978-08-12'),
+    (5, '5678901234', 'Hernández', 'Laura', 'Ginecología', '1985-03-10'),
+    (6, '6789012345', 'Gómez', 'Pedro', 'Oftalmología', '1983-07-05'),
+    (7, '7890123456', 'Vargas', 'Sofía', 'Neurología', '1976-02-18'),
+    (8, '8901234567', 'Pérez', 'Jorge', 'Psiquiatría', '1981-12-28'),
+    (9, '9012345678', 'Torres', 'Isabel', 'Oncología', '1979-06-07'),
+    (10, '0123456789', 'Ramírez', 'Miguel', 'Ortopedia', '1984-04-14'),
+    (11, '1234509876', 'Guzmán', 'Daniela', 'Pediatría', '1980-10-29'),
+    (12, '2345610987', 'Silva', 'Alejandro', 'Cardiología', '1977-03-08'),
+    (13, '3456721098', 'Rojas', 'Carolina', 'Dermatología', '1982-01-20'),
+    (14, '4567832109', 'Paz', 'Roberto', 'Cirugía General', '1978-07-01'),
+    (15, '5678943210', 'Fuentes', 'Valeria', 'Ginecología', '1985-09-11'),
+    (16, '6789054321', 'Cabrera', 'Andrés', 'Oftalmología', '1983-04-25'),
+    (17, '7890165432', 'Molina', 'Marcela', 'Neurología', '1976-11-07'),
+    (18, '8901276543', 'Sánchez', 'Fernando', 'Psiquiatría', '1981-01-18'),
+    (19, '9012387654', 'Aguilar', 'Paola', 'Oncología', '1979-08-03'),
+    (20, '0123498765', 'Ríos', 'Luis', 'Ortopedia', '1984-06-26'),
+    (21, '1234501987', 'Castro', 'Verónica', 'Pediatría', '1980-12-05'),
+    (22, '2345612098', 'Ortega', 'Daniel', 'Cardiología', '1977-09-17'),
+    (23, '3456723210', 'Lara', 'Carla', 'Dermatología', '1982-02-27'),
+    (24, '4567834321', 'Gómez', 'Diego', 'Cirugía General', '1978-10-09'),
+    (25, '5678945432', 'Vera', 'Camila', 'Ginecología', '1985-06-14');
+
+
+-- INSERTAR DATOS EN LA TABLA INGRESOS
+
+INSERT INTO INGRESOS VALUES 
+    (1, 'Fiebre, dolor de cabeza', 68.5, 175.3, '2023-01-15', 1, 1),
+    (2, 'Tos persistente, dificultad para respirar', 75.2, 180.1, '2023-02-02', 2, 2),
+    (3, 'Dolor abdominal, vómitos', 62.7, 165.9, '2023-02-10', 3, 3),
+    (4, 'Mareos, visión borrosa', 70.1, 170.5, '2023-03-05', 4, 4),
+    (5, 'Dolor de espalda, debilidad muscular', 82.3, 185.2, '2023-03-12', 5, 5),
+    (6, 'Dolor en articulaciones, inflamación', 67.9, 168.7, '2023-04-02', 6, 6),
+    (7, 'Dolor en el pecho, falta de aire', 73.8, 172.6, '2023-04-10', 7, 7),
+    (8, 'Fatiga, falta de concentración', 61.4, 160.8, '2023-05-01', 8, 8),
+    (9, 'Molestias urinarias, sangrado', 70.9, 174.2, '2023-05-05', 9, 9),
+    (10, 'Dolor en articulaciones, enrojecimiento', 78.6, 178.9, '2023-05-22', 10, 10),
+    (11, 'Dolor abdominal intenso, diarrea', 64.3, 166.5, '2023-06-03', 11, 11),
+    (12, 'Malestar general, dolor de garganta', 69.8, 171.3, '2023-06-10', 12, 12),
+    (13, 'Dolor en el pecho, palpitaciones', 76.5, 183.7, '2023-07-02', 13, 13),
+    (14, 'Dolor de cabeza intenso, visión borrosa', 63.7, 167.8, '2023-07-15', 14, 14),
+    (15, 'Tos, congestión nasal', 71.2, 176.4, '2023-07-25', 15, 15),
+    (16, 'Dolor abdominal, pérdida de apetito', 79.4, 180.8, '2023-08-05', 16, 16),
+    (17, 'Dolor de espalda, entumecimiento', 68.9, 172.1, '2023-08-15', 17, 17),
+    (18, 'Dolor en articulaciones, inflamación', 74.7, 177.3, '2023-09-10', 18, 18),
+    (19, 'Dolor en el pecho, falta de aire', 65.6, 169.5, '2023-09-25', 19, 19),
+    (20, 'Fatiga, dificultad para dormir', 72.3, 175.9, '2023-10-08', 20, 20),
+    (21, 'Mareos, desmayos', 68.7, 170.2, '2023-10-20', 21, 21),
+    (22, 'Dolor abdominal, náuseas', 76.8, 178.1, '2023-11-05', 22, 22),
+    (23, 'Dolor en articulaciones, rigidez', 63.2, 166.2, '2023-11-12', 23, 23),
+    (24, 'Dolor de cabeza, sensibilidad a la luz', 70.5, 173.6, '2023-11-28', 24, 24),
+    (25, 'Tos persistente, fiebre', 75.1, 179.8, '2023-12-10', 25, 25);
+
+-- INSERTAR DATOS EN LA TABLA DIAGNOSTICOS
+
+INSERT INTO DIAGNOSTICOS VALUES 
+    (1, 'Gripe', 'Infección viral que afecta las vías respiratorias', 'Reposo, hidratación y medicamentos para aliviar los síntomas', '2023-01-17', 1),
+    (2, 'Neumonía', 'Infección pulmonar que causa inflamación en los alvéolos', 'Antibióticos, reposo y cuidados respiratorios', '2023-02-05', 2),
+    (3, 'Apendicitis', 'Inflamación del apéndice', 'Cirugía de apendicectomía', '2023-02-12', 3),
+    (4, 'Hipertensión arterial', 'Presión arterial elevada', 'Medicamentos antihipertensivos y cambios en el estilo de vida', '2023-03-08', 4),
+    (5, 'Lumbalgia', 'Dolor en la zona baja de la espalda', 'Terapia física, analgésicos y ejercicios de fortalecimiento', '2023-03-15', 5),
+    (6, 'Artritis reumatoide', 'Enfermedad autoinmune que causa inflamación en las articulaciones', 'Medicamentos antiinflamatorios y terapia ocupacional', '2023-04-05', 6),
+    (7, 'Infarto de miocardio', 'Bloqueo del flujo sanguíneo al corazón', 'Angioplastia coronaria, medicamentos y cambios en el estilo de vida', '2023-04-13', 7),
+    (8, 'Depresión', 'Trastorno del estado de ánimo caracterizado por tristeza y falta de interés', 'Terapia psicológica y medicamentos antidepresivos', '2023-05-03', 8),
+    (9, 'Infección urinaria', 'Infección en el sistema urinario', 'Antibióticos y aumento de la ingesta de líquidos', '2023-05-07', 9),
+    (10, 'Artritis reumatoide', 'Enfermedad autoinmune que causa inflamación en las articulaciones', 'Medicamentos antiinflamatorios y terapia ocupacional', '2023-05-24', 10),
+    (11, 'Apendicitis', 'Inflamación del apéndice', 'Cirugía de apendicectomía', '2023-06-05', 11),
+    (12, 'Amigdalitis', 'Inflamación de las amígdalas', 'Antibióticos, reposo y enjuagues bucales', '2023-06-12', 12),
+    (13, 'Arritmia cardíaca', 'Trastorno del ritmo cardíaco', 'Medicamentos, cardioversión y cambios en la dieta', '2023-07-04', 13),
+    (14, 'Migraña', 'Dolor de cabeza intenso y recurrente','Medicamentos para aliviar el dolor y evitar desencadenantes', '2023-07-17', 14),
+    (15, 'Resfriado común', 'Infección viral del tracto respiratorio superior', 'Reposo, hidratación y medicamentos para aliviar los síntomas', '2023-07-27', 15),
+    (16, 'Gastritis', 'Inflamación del revestimiento del estómago', 'Medicamentos para reducir la acidez y cambios en la dieta', '2023-08-07', 16),
+    (17, 'Hernia de disco', 'Protuberancia o ruptura del disco intervertebral', 'Terapia física, medicamentos para el dolor y cirugía en casos graves', '2023-08-17', 17),
+    (18, 'Artritis reumatoide', 'Enfermedad autoinmune que causa inflamación en las articulaciones', 'Medicamentos antiinflamatorios y terapia ocupacional', '2023-09-01', 18),
+    (19, 'Infarto de miocardio', 'Bloqueo del flujo sanguíneo al corazón', 'Angioplastia coronaria, medicamentos y cambios en el estilo de vida', '2023-09-27', 19),
+    (20, 'Trastorno de ansiedad', 'Trastorno mental caracterizado por preocupación y miedo excesivos', 'Terapia psicológica y medicamentos ansiolíticos', '2023-10-10', 20),
+    (21, 'Hipotiroidismo', 'Baja producción de hormonas tiroideas', 'Medicamentos de reemplazo hormonal', '2023-10-22', 21),
+    (22, 'Gastritis', 'Inflamación del revestimiento del estómago', 'Medicamentos para reducir la acidez y cambios en la dieta', '2023-11-07', 22),
+    (23, 'Artritis reumatoide', 'Enfermedad autoinmune que causa inflamación en las articulaciones', 'Medicamentos antiinflamatorios y terapia ocupacional', '2023-11-14', 23),
+    (24, 'Migraña', 'Dolor de cabeza intenso y recurrente', 'Medicamentos para aliviar el dolor y evitar desencadenantes', '2023-11-30', 24),
+    (25, 'Gripe', 'Infección viral que afecta las vías respiratorias', 'Reposo, hidratación y medicamentos para aliviar los síntomas', '2023-12-12', 25);
+
+
