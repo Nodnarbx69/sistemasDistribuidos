@@ -1,0 +1,6 @@
+create user 'uleam2'@'localhost' identified by '123';
+
+grant insert, select, update on banco.clientes to 'uleam2'@'localhost';
+grant select on banco.locales to 'uleam2'@'localhost';
+grant insert, select on banco.movimientos to 'uleam2'@'localhost';
+grant update, delete on banco.tarjetas to 'uleam2'@'localhost';
